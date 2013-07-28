@@ -82,8 +82,7 @@ public class SeesawView extends FrameLayout {
     }
 
     private void reset() {
-        animate().rotationX(0f).rotationY(0f).setDuration(800).scaleX(1f).scaleY(1f).
-            setInterpolator(mInterpolator).start();
+        animate().rotationX(0f).rotationY(0f).setDuration(800).setInterpolator(mInterpolator).start();
     }
 
     public void setInterpolator(final int resId) {
