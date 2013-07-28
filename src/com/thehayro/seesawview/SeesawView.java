@@ -1,4 +1,4 @@
-package com.thehayro.view;
+package com.thehayro.seesawview;
 
 import com.thehayro.R;
 
