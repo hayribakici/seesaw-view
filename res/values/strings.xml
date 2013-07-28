@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ResponsiveView</string>
-    <string name="one_child">ResponsiveView can only have one child</string>
+    <string name="app_name">SeesawView</string>
+    <string name="one_child">SeesawView can only have one child</string>
 </resources>

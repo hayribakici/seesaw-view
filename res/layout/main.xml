@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:thehayro="http://schemas.android.com/apk/res/com.thehayro"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
     <com.thehayro.view.SeesawView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        interpolation="@android:anim/bounce_interpolator">
+        thehayro:interpolation="@android:interpolator/overshoot">
 
         <ImageView
             android:id="@+id/image"

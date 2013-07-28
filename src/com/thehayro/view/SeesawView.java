@@ -9,15 +9,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 
 public class SeesawView extends FrameLayout {
 
     private TimeInterpolator mInterpolator;
-
-    private float mTension;
 
     public SeesawView(Context context) {
         this(context, null);
@@ -30,17 +26,18 @@ public class SeesawView extends FrameLayout {
     public SeesawView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeesawView);
-        setTension(a.getFloat(R.styleable.SeesawView_tension, 1f));
 
-        int resId = a.getResourceId(R.styleable.SeesawView_interpolation, android.R.anim.linear_interpolator);
+        int resId = a.getResourceId(R.styleable.SeesawView_interpolation, android.R.interpolator.linear);
         if (resId > 0) {
             setInterpolator(resId);
         }
+
+        a.recycle();
     }
 
 
     @Override
-    public void addView(View child) {
+    public final void addView(View child) {
         final int childCount = getChildCount();
         if (childCount >= 1)
             throw new RuntimeException(getContext().getString(R.string.one_child));
@@ -54,20 +51,8 @@ public class SeesawView extends FrameLayout {
         if (action != MotionEvent.ACTION_UP) {
             return dispatchTap(event);
         }
+        reset();
         return super.onInterceptTouchEvent(event);
-    }
-
-
-    @Override
-    public boolean onTouchEvent(final MotionEvent event) {
-        final int action = event.getAction();
-        if (action == MotionEvent.ACTION_UP) {
-            reset();
-            return super.onTouchEvent(event);
-        }
-
-        return dispatchTap(event);
-
     }
 
     private float getPivotPointX() {
@@ -81,22 +66,25 @@ public class SeesawView extends FrameLayout {
     }
 
     private boolean dispatchTap(final MotionEvent e) {
-        final Vector r1 = new Vector(e.getX(), e.getY(), 0);
+        final float x = e.getX();
+        final float y = e.getY();
+
+        final Vector r1 = new Vector(x, y, 0);
         final Vector r0 = new Vector(getPivotPointX(), getPivotPointY(), 0);
-        final Vector f = new Vector(e.getX(), e.getY(), e.getPressure());
+        final Vector f = new Vector(x, y, e.getPressure());
         final Vector r = r1.subtract(r0);
         final Vector torqueVector = r.crossProduct(f);
         final float yRot = (float) Math.toRadians(torqueVector.y) * (- 1);
         final float xRot = (float) Math.toRadians(torqueVector.x) * (- 1);
         setRotationX(xRot);
         setRotationY(yRot);
-        return true;
+        return false;
     }
 
     private void reset() {
-        animate().rotationX(0f).rotationY(0f).setDuration(800).setInterpolator(mInterpolator).start();
+        animate().rotationX(0f).rotationY(0f).setDuration(800).scaleX(1f).scaleY(1f).
+            setInterpolator(mInterpolator).start();
     }
-
 
     public void setInterpolator(final int resId) {
         setInterpolator(AnimationUtils.loadInterpolator(getContext(), resId));
@@ -106,15 +94,7 @@ public class SeesawView extends FrameLayout {
         mInterpolator = interpolator;
     }
 
-    public float getTension() {
-        return mTension;
-    }
-
-    public void setTension(final float tension) {
-        mTension = tension;
-    }
-
-    private class Vector {
+    private static class Vector {
 
         float x, y, z;
 
@@ -126,10 +106,6 @@ public class SeesawView extends FrameLayout {
 
         Vector subtract(Vector v) {
             return new Vector(x - v.x, y - v.y, z - v.z);
-        }
-
-        Vector add(Vector v) {
-            return new Vector(x + v.x, y + v.y, z + v.z);
         }
 
         Vector crossProduct(Vector v) {

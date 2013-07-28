@@ -2,6 +2,5 @@
 <resources>
     <declare-styleable name="SeesawView">
         <attr name="interpolation" format="reference" />
-        <attr name="tension" format="float"/>
     </declare-styleable>
 </resources>
