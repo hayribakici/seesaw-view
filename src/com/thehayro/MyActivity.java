@@ -13,12 +13,5 @@ public class MyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        final View view = findViewById(R.id.image);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                Log.d("SeesawView", "click!");
-            }
-        });
     }
 }
