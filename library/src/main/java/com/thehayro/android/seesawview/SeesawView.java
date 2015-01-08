@@ -1,6 +1,4 @@
-package com.thehayro.seesawview;
-
-import com.thehayro.R;
+package com.thehayro.android.seesawview;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
@@ -74,8 +72,8 @@ public class SeesawView extends FrameLayout {
         final Vector f = new Vector(x, y, e.getPressure());
         final Vector r = r1.subtract(r0);
         final Vector torqueVector = r.crossProduct(f);
-        final float yRot = (float) Math.toRadians(torqueVector.y) * (- 1);
-        final float xRot = (float) Math.toRadians(torqueVector.x) * (- 1);
+        final float yRot = (float) Math.toRadians(torqueVector.y) * (-1);
+        final float xRot = (float) Math.toRadians(torqueVector.x) * (-1);
         setRotationX(xRot);
         setRotationY(yRot);
         return false;

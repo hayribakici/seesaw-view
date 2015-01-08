@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:thehayro="http://schemas.android.com/apk/res/com.thehayro.android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:orientation="vertical">
+
+    <com.thehayro.android.seesawview.SeesawView
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        thehayro:interpolation="@android:interpolator/overshoot">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/android" />
+    </com.thehayro.android.seesawview.SeesawView>
+
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" android:text="@string/app_name"
+      android:id="@+id/btn"/>
+
+</LinearLayout>
