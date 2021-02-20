@@ -101,6 +101,9 @@ public class SeesawView extends FrameLayout {
 
     @Override
     public void setOnClickListener(@Nullable OnClickListener listener) {
+        if (getChildCount() == 0) {
+            return;
+        }
         getChildAt(0).setOnClickListener(listener);
     }
 

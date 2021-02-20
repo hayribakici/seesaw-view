@@ -31,6 +31,6 @@ Add the dependency
 
 ```groovy
     dependencies {
-    	        implementation 'com.github.hayribakici:seesaw-view:0.1'
+    	        implementation 'com.github.hayribakici:seesaw-view:0.1.1'
     	}
 ```
