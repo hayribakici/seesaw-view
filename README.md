@@ -37,4 +37,4 @@ Add the dependency
 
 # Caveats
 
-A `onClickListener()` is necessary for the `seesawview` is necessary. See the sample project.
+A `onClickListener()` is necessary for the `seesawview` to operate correctly. See the sample project.
