@@ -1,8 +1,20 @@
+/*
+ *     Copyright 2014, 2021 hayribakici
+ *     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *     Unless required by applicable law or agreed to in writing,
+ *     software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *       See the License for the specific language governing permissions and limitations under the License.
+ */
+
 package com.thehayro.android.seesawview;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.InterpolatorRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,7 +23,7 @@ import android.widget.FrameLayout;
 
 public class SeesawView extends FrameLayout {
 
-    private TimeInterpolator mInterpolator;
+    private TimeInterpolator interpolator;
 
     public SeesawView(Context context) {
         this(context, null);
@@ -29,19 +41,17 @@ public class SeesawView extends FrameLayout {
         if (resId > 0) {
             setInterpolator(resId);
         }
-
         a.recycle();
     }
-
 
     @Override
     public final void addView(View child) {
         final int childCount = getChildCount();
-        if (childCount >= 1)
+        if (childCount >= 1) {
             throw new RuntimeException(getContext().getString(R.string.one_child));
+        }
         super.addView(child);
     }
-
 
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent event) {
@@ -54,16 +64,14 @@ public class SeesawView extends FrameLayout {
     }
 
     private float getPivotPointX() {
-        final int width = getWidth();
-        return (float) width * 0.5f;
+        return (float) getWidth() * 0.5f;
     }
 
     private float getPivotPointY() {
-        final int height = getHeight();
-        return (float) height * 0.5f;
+        return (float) getHeight() * 0.5f;
     }
 
-    private boolean dispatchTap(final MotionEvent e) {
+    private boolean dispatchTap(@NonNull final MotionEvent e) {
         final float x = e.getX();
         final float y = e.getY();
 
@@ -80,15 +88,20 @@ public class SeesawView extends FrameLayout {
     }
 
     private void reset() {
-        animate().rotationX(0f).rotationY(0f).setDuration(800).setInterpolator(mInterpolator).start();
+        animate().rotationX(0f).rotationY(0f).setDuration(800).setInterpolator(interpolator).start();
     }
 
-    public void setInterpolator(final int resId) {
+    public void setInterpolator(@InterpolatorRes final int resId) {
         setInterpolator(AnimationUtils.loadInterpolator(getContext(), resId));
     }
 
     public void setInterpolator(final TimeInterpolator interpolator) {
-        mInterpolator = interpolator;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener listener) {
+        getChildAt(0).setOnClickListener(listener);
     }
 
     private static class Vector {
@@ -115,7 +128,5 @@ public class SeesawView extends FrameLayout {
         public String toString() {
             return String.format("x: %s y: %s z: %s", x, y, z);
         }
-
     }
-
 }
