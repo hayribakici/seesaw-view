@@ -31,6 +31,10 @@ Add the dependency
 
 ```groovy
     dependencies {
-    	        implementation 'com.github.hayribakici:seesaw-view:0.1.1'
+    	        implementation 'com.github.hayribakici:seesaw-view:0.1'
     	}
 ```
+
+# Caveats
+
+A `onClickListener()` is necessary for the `seesawview` is necessary. See the sample project.
