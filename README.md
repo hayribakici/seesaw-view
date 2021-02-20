@@ -15,3 +15,22 @@ The view is a plane that is on an imaginary stick as seen on this illustration.
 
 
 
+## Get it
+In your root `build.gradle` at the end of repositories
+
+```groovy
+    	allprojects {
+    		repositories {
+    			...
+    			maven { url 'https://jitpack.io' }
+    		}
+    	}
+```
+
+Add the dependency
+
+```groovy
+    dependencies {
+    	        implementation 'com.github.hayribakici:seesaw-view:0.1'
+    	}
+```
